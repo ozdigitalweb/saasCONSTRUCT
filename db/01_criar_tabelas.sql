@@ -26,8 +26,8 @@ CREATE TABLE imovel (
     CONSTRAINT ck_imovel_identificacao CHECK (btrim(identificacao) <> ''),
     CONSTRAINT ck_imovel_nome_cliente CHECK (btrim(nome_cliente) <> '')
 );
-COMMENT ON TABLE  imovel IS 'Imovel cadastrado pela Karol ou pelo consultor (UC01 a UC04).';
-COMMENT ON COLUMN imovel.nome_cliente IS 'Cliente da Karol: quem comprou o imovel e recebe o relatorio.';
+COMMENT ON TABLE  imovel IS 'Imovel cadastrado pelo Cliente ou pelo consultor (UC01 a UC04).';
+COMMENT ON COLUMN imovel.nome_cliente IS 'Cliente (Comprador Final): quem comprou o imovel e recebe o relatorio.';
 
 -- ---------------------------------------------------------------
 -- Plano de Acao

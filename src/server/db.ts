@@ -74,7 +74,7 @@ const INITIAL_IMOVEIS: Omit<Imovel, 'id' | 'criado_em' | 'atualizado_em'>[] = Ar
   };
 });
 
-// Seed sample plans for the first 3 properties so Karol & Santos have immediately testable workflows
+// Seed sample plans for the first 3 properties so Cliente & Santos have immediately testable workflows
 const INITIAL_SAMPLE_PLANS: {
   imovelIndex: number;
   nome_montador: string;

@@ -78,9 +78,11 @@ pm2 startup
 
 ## 🔒 Configuração de Domínio e SSL (Nginx + Let's Encrypt)
 
+- **Domínio Final de Produção**: `saascon.oz.com.br`
+
 ```nginx
 server {
-    server_name seudominio.com.br;
+    server_name saascon.oz.com.br;
 
     location / {
         proxy_pass http://localhost:3000;
@@ -98,5 +100,5 @@ server {
 Para gerar certificado SSL grátis:
 ```bash
 sudo apt install -y certbot python3-certbot-nginx
-sudo certbot --nginx -d seudominio.com.br
+sudo certbot --nginx -d saascon.oz.com.br
 ```

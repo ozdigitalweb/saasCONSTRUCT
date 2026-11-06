@@ -204,7 +204,7 @@ export function gerarPdfRelatorio(
   doc.setFontSize(8);
   doc.setFont('helvetica', 'normal');
   doc.setTextColor(mutedColor[0], mutedColor[1], mutedColor[2]);
-  doc.text('Validação Soberana - Karol (Responsável pela Entrega)', margin, y + 8);
+  doc.text('Validação Soberana - Cliente (Responsável pela Entrega)', margin, y + 8);
   doc.line(margin, y + 6, margin + 75, y + 6);
 
   doc.text('Consultoria Técnica & Auditoria (Santos)', pageWidth - margin - 75, y + 8);

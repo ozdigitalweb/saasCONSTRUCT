@@ -28,11 +28,11 @@ chmod +x deploy-vps.sh
 # Ou diretamente via Docker Compose:
 docker-compose up -d --build`;
 
-  const envTemplate = `# Configuração de Produção para seu VPS Particular
+  const envTemplate = `# Configuração de Produção para seu VPS Particular (saascon.oz.com.br)
 PORT=3000
 NODE_ENV=production
 DATABASE_URL=postgresql://mvp1_app:SUA_SENHA_SEGURA@localhost:5432/mvp1_adequacao
-APP_URL=http://SEU_IP_VPS:3000`;
+APP_URL=https://saascon.oz.com.br`;
 
   const sql00 = `-- Script 00: Criar Banco e Usuário no PostgreSQL
 CREATE ROLE mvp1_app LOGIN;
@@ -227,7 +227,7 @@ psql -d mvp1_adequacao -f db/03_dados_de_teste_opcional.sql`;
             </div>
             <div className="p-3 rounded-xl bg-slate-50 border border-slate-200">
               <span className="font-bold text-slate-800 block">03_dados_de_teste_opcional.sql</span>
-              <p className="text-slate-500 text-[11px] mt-0.5">15 imóveis fictícios para validação da Karol e Santos (LGPD).</p>
+              <p className="text-slate-500 text-[11px] mt-0.5">15 imóveis fictícios para validação do Cliente e Santos (LGPD).</p>
             </div>
           </div>
         </div>

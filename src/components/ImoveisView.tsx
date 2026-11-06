@@ -146,7 +146,7 @@ export const ImoveisView: React.FC<ImoveisViewProps> = ({
             Imóveis em Adequação
           </h1>
           <p className="text-xs sm:text-sm text-slate-500 mt-0.5">
-            15 imóveis fictícios do plano de validação da Karol e do Santos (LGPD compliant).
+            15 imóveis fictícios do plano de validação do Cliente e do Santos (LGPD compliant).
           </p>
         </div>
 

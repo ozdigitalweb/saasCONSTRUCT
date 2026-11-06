@@ -109,7 +109,7 @@ export const Header: React.FC<HeaderProps> = ({
             )}
           </button>
 
-          {/* Quick Reset Test Data for Karol/Santos */}
+          {/* Quick Reset Test Data for Cliente/Santos */}
           <button
             onClick={onResetSeed}
             disabled={isResetting}

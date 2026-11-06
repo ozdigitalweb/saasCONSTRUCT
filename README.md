@@ -10,15 +10,24 @@
 
 ---
 
+## 🌐 Ambientes & Links de Acesso
+
+| Ambiente | Status | URL de Acesso |
+| :--- | :--- | :--- |
+| 🛠️ **Desenvolvimento** | **Ativo** | [https://saasconstruct.ai.studio](https://saasconstruct.ai.studio) |
+| 🚀 **Produção (Final)** | **Configurado para VPS** | [https://saascon.oz.com.br](https://saascon.oz.com.br) |
+
+---
+
 ## 📌 1. Visão Geral do Projeto
 
 O **saasCONSTRUCT (MVP 1)** é um sistema construído sob a metodologia **Mobile-First UX**, alta acessibilidade (**WCAG AA**) e navegação fluida em smartphones, tablets e desktops.
 
 ### O Problema que Resolve
-A **Karol** entrega apartamentos com móveis planejados instalados e precisa registrar se a montagem foi concluída com sucesso e entregar ao cliente (comprador) um relatório formal de adequação em PDF. Anteriormente, esse controle ocorria de forma dispersa via mensagens e anotações.
+O **Cliente** entrega apartamentos com móveis planejados instalados e precisa registrar se a montagem foi concluída com sucesso e entregar ao comprador final um relatório formal de adequação em PDF. Anteriormente, esse controle ocorria de forma dispersa via mensagens e anotações.
 
 ### Critério de Sucesso do MVP 1
-Geração sem erros do **Relatório em PDF** para cada um dos **15 imóveis fictícios de teste** (em conformidade com a **LGPD**), aprovado pela Karol através de sua **validação soberana**.
+Geração sem erros do **Relatório em PDF** para cada um dos **15 imóveis fictícios de teste** (em conformidade com a **LGPD**), aprovado pelo Cliente através de sua **validação soberana**.
 
 ---
 
@@ -28,13 +37,13 @@ No MVP 1 não há sistema de login complexo nem hierarquia de permissões restri
 
 | Ator | Usa o Sistema? | Papel no MVP 1 |
 | :--- | :---: | :--- |
-| **Karol** | **Sim** | Usuária principal; cadastra imóveis/planos, marca itens do checklist e valida soberanamente o relatório. |
+| **Cliente** | **Sim** | Usuário principal; cadastra imóveis/planos, marca itens do checklist e valida soberanamente o relatório final. |
 | **Consultor (Santos)** | **Sim** | Cadastra/audita os 15 imóveis fictícios, executa os cenários de teste e valida o fluxo técnico. |
-| **Montador** | Não | Recebe o plano por fora (WhatsApp informado é dado cadastral). O retorno do trabalho é lançado pela Karol/Santos. |
-| **Cliente da Karol** | Não | Comprador do imóvel; recebe o PDF enviado manualmente pela Karol após a geração no sistema. |
+| **Montador** | Não | Recebe o plano por fora (WhatsApp informado é dado cadastral). O retorno do trabalho é lançado pelo Cliente ou pelo Santos. |
+| **Comprador Final** | Não | Quem comprou o imóvel; recebe o PDF enviado manualmente pelo Cliente após a geração no sistema. |
 | **Investidor** | Não | Financia as operações; não interage com o sistema no MVP 1. |
 
-> **Nota:** O campo anteriormente denominado "nome do investidor" foi corrigido para **`nome_cliente`** (quem comprou o imóvel e recebe o relatório).
+> **Nota:** O campo anteriormente denominado "nome do investidor" foi padronizado para **`nome_cliente`** (quem comprou o imóvel e recebe o relatório).
 
 ---
 
@@ -52,7 +61,7 @@ As entidades seguem uma ordem estrita de criação para garantir a integridade d
 [ 3. Checklist Resumido ] ──▶ [ 3.1 Itens do Checklist ('feito' | 'nao_feito') ]
      │
      ▼
-[ 4. Relatório em PDF ] (Contém dados do Imóvel, Montador, Checklist e Termo)
+[ 4. Relatório em PDF ] (Contém dados do Imóvel, Montador, Checklist e Termo de Validação)
 ```
 
 1. **Imóvel** não depende de nenhuma entidade.
@@ -77,7 +86,7 @@ As entidades seguem uma ordem estrita de criação para garantir a integridade d
 | **UC09** | Gerar Checklist Resumido | `POST /api/planos/:id/checklist` | Gera checklist a partir dos itens do plano, todos iniciando como `nao_feito`. |
 | **UC10** | Consultar Checklist | `GET /api/checklists/:id` | Exibe o checklist com total de itens, concluídos, pendentes e taxa de conclusão (%) com números tabulares. |
 | **UC11** | Marcar Item como Feito/Não Feito | `PATCH /api/checklist-itens/:id` | Alterna status instantaneamente via toque mobile com feedback tátil e grava carimbo de data/hora `marcado_em`. |
-| **UC12** | Gerar Relatório em PDF | `POST /api/checklists/:id/relatorio` | Gera documento PDF formatado com dados do imóvel, montador, tabela de móveis e termo de validação soberana. |
+| **UC12** | Gerar Relatório em PDF | `POST /api/checklists/:id/relatorio` | Gera documento PDF formatado com dados do imóvel, montador, tabela de móveis e termo de validação soberana do Cliente. |
 | **UC13** | Consultar e Baixar PDF | `GET /api/relatorios/:id/pdf` | Efetua o download do binário PDF arquivado sem necessidade de recalcular. |
 
 ---
@@ -91,7 +100,7 @@ Os scripts oficiais de criação e teste encontram-se no diretório `/db`:
 | `db/00_criar_banco_e_usuario.sql` | Cria o role `mvp1_app` e a base `mvp1_adequacao`. |
 | `db/01_criar_tabelas.sql` | Cria o schema `mvp1`, as 6 tabelas, chaves primárias `BIGINT GENERATED ALWAYS AS IDENTITY`, índices e regras de integridade. |
 | `db/02_gatilho_atualizado_em.sql` | Cria função e triggers que atualizam a coluna `atualizado_em` automaticamente a cada `UPDATE`. |
-| `db/03_dados_de_teste_opcional.sql` | Insere os 15 imóveis fictícios do plano de teste da Karol e Santos (LGPD). |
+| `db/03_dados_de_teste_opcional.sql` | Insere os 15 imóveis fictícios do plano de teste do Cliente e Santos (LGPD). |
 
 ### Tabelas do Schema `mvp1`
 1. **`imovel`**: `id`, `identificacao`, `endereco`, `cidade`, `estado (CHAR(2))`, `nome_cliente`, `criado_em`, `atualizado_em`.
@@ -116,7 +125,9 @@ O aplicativo foi projetado seguindo rigorosas diretrizes de experiência do usu�
 
 ## 🚀 7. Como Executar em Desenvolvimento
 
-### Pré-requisitos
+- **URL do Ambiente de Desenvolvimento**: [https://saasconstruct.ai.studio](https://saasconstruct.ai.studio)
+
+### Pré-requisitos Locais
 - Node.js 20+ ou 22+
 - npm 10+
 - *(Opcional)* PostgreSQL 16 local ou remoto (se não informado, o sistema utiliza o emulador em memória pré-populado com os 15 imóveis).
@@ -139,6 +150,8 @@ Acesse: **`http://localhost:3000`**
 ---
 
 ## 🌐 8. Deploy no seu VPS Particular (Produção)
+
+- **Domínio Final de Produção**: **`saascon.oz.com.br`** ([https://saascon.oz.com.br](https://saascon.oz.com.br))
 
 Você pode implantar o sistema no seu VPS (Ubuntu, Debian, etc.) de duas formas:
 
@@ -196,6 +209,7 @@ Isso subirá:
    PORT=3000
    NODE_ENV=production
    DATABASE_URL=postgresql://mvp1_app:SUA_SENHA_SEGURA@localhost:5432/mvp1_adequacao
+   APP_URL=https://saascon.oz.com.br
    EOF
    ```
 
@@ -209,12 +223,12 @@ Isso subirá:
    pm2 startup
    ```
 
-5. **Configurar Nginx com HTTPS (Let's Encrypt):**
+5. **Configurar Nginx com HTTPS (Let's Encrypt) para `saascon.oz.com.br`:**
    Crie `/etc/nginx/sites-available/saasconstruct`:
    ```nginx
    server {
        listen 80;
-       server_name seudominio.com.br;
+       server_name saascon.oz.com.br;
 
        location / {
            proxy_pass http://127.0.0.1:3000;
@@ -232,7 +246,7 @@ Isso subirá:
    ```bash
    sudo ln -s /etc/nginx/sites-available/saasconstruct /etc/nginx/sites-enabled/
    sudo nginx -t && sudo systemctl reload nginx
-   sudo certbot --nginx -d seudominio.com.br
+   sudo certbot --nginx -d saascon.oz.com.br
    ```
 
 ---
@@ -283,8 +297,8 @@ saasconstruct/
 | Versão | Itens Previstos |
 | :---: | :--- |
 | **MVP 2** | Anexo de fotos e mídias das montagens; checklist detalhado com observações por item; cadastro formal de prestadores de serviço. |
-| **MVP 3** | Assinatura digital da Karol e do cliente no relatório; indicação de prestadores aptos a receber pagamento. |
-| **MVP 4** | Envio automático do PDF do relatório diretamente para o cliente via WhatsApp/E-mail. |
+| **MVP 3** | Assinatura digital do Cliente e do comprador final no relatório; indicação de prestadores aptos a receber pagamento. |
+| **MVP 4** | Envio automático do PDF do relatório diretamente para o comprador via WhatsApp/E-mail. |
 | **MVP 5** | Log completo de auditoria; almoxarifado e controle de inventário de ferramentas dos montadores. |
 
 ---

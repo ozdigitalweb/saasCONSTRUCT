@@ -28,7 +28,7 @@ export const RelatoriosView: React.FC<RelatoriosViewProps> = ({
           Relatórios em PDF Gerados (UC13)
         </h1>
         <p className="text-xs sm:text-sm text-slate-500 mt-0.5">
-          Documentos oficiais de adequação e montagem de móveis planejados para entrega ao cliente (validação da Karol).
+          Documentos oficiais de adequação e montagem de móveis planejados para entrega ao comprador (validação soberana do Cliente).
         </p>
       </div>
 
