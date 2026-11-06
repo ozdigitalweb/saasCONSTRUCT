@@ -1,0 +1,6 @@
+{
+  "name": "saasCONSTRUCT - Adequação & Checklist",
+  "description": "Sistema Mobile-First de gestão de adequação de móveis planejados, checklist de montagem e emissão de relatórios em PDF com PostgreSQL para VPS.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
